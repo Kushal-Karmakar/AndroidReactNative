@@ -36,3 +36,30 @@ allprojects {
         maven { url 'https://www.jitpack.io' }
     }
 }
+
+MYAPP_RELEASE_STORE_FILE=AndroidReactNative.keystore
+MYAPP_RELEASE_KEY_ALIAS=AndroidReactNative
+MYAPP_RELEASE_STORE_PASSWORD=12345678
+MYAPP_RELEASE_KEY_PASSWORD=12345678
+
+signingConfigs
+    {
+        release
+        {
+            if (project.hasProperty('MYAPP_RELEASE_STORE_FILE'))
+            {
+                storeFile file(MYAPP_RELEASE_STORE_FILE)
+                storePassword MYAPP_RELEASE_STORE_PASSWORD
+                keyAlias MYAPP_RELEASE_KEY_ALIAS
+                keyPassword MYAPP_RELEASE_KEY_PASSWORD
+            }
+        }
+    }
+
+buildTypes 
+{
+        release 
+		{
+            signingConfig signingConfigs.release
+        }
+}
